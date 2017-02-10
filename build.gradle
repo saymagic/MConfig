@@ -1,0 +1,54 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.novoda:bintray-release:0.3.4'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://dl.bintray.com/saymagic/maven/'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    userOrg = 'saymagic'
+    groupId = 'tech.saymagic'
+    publishVersion = '1.0.1'
+    desc = 'a flexible config provider'
+    website = 'https://github.com/saymagic/mconfig'
+    licences = ['Apache-2.0']
+    uploadName = 'MConfig'
+}
+
+task smokeTest(
+        dependsOn: [
+                ':baselib:test',
+                ':androidlib:test'
+        ])
+
+task publishBaseLib(
+        dependsOn: [
+                ':baselib:bintrayUpload'
+        ]
+)
+
+task publishAndroidLib(
+        dependsOn: [
+                ':androidlib:bintrayUpload'
+        ]
+)

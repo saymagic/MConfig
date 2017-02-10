@@ -1,0 +1,48 @@
+language: android
+
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+    - MALLOC_ARENA_MAX=2
+    - ADB_INSTALL_TIMEOUT=10
+
+android:
+  components:
+  - build-tools-25.0.1
+  - android-25
+  - extra-android-m2repository
+  - extra-android-support
+
+cache: false
+sudo: required
+
+before_install:
+- chmod +x gradlew
+- gem install fir-cli
+- git config --global user.email ${EMAIL}
+
+script:
+- "./gradlew aD"
+
+after_success:
+- fir p app/build/outputs/apk/app-debug.apk -T ${FIR_TOKEN} -c "Upload by Travis CI - ${TRAVIS_BUILD_NUMBER}"
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: ${ACCESS_TOKEN}
+  file:
+    - app/build/outputs/apk/app-debug.apk
+  on:
+    tags: true
+    all_branches: true
+
+notifications:
+  email:
+    recipients:
+        - ${EMAIL}
+    on_success: always
+    on_failure: always

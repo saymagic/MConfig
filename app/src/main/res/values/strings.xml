@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MConfig</string>
+    <string name="get_value_btn_txt">Get Value</string>
+</resources>
