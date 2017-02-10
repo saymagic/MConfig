@@ -32,7 +32,7 @@ In your `build.gradle`
 In your `build.gradle` 
 
 	dependencies {
-	       compile 'tech.saymagic:mconfig-android:1.0.1'
+	   compile 'tech.saymagic:mconfig-android:1.0.1'
 	} 
 	
 ## Example Usage
@@ -69,7 +69,7 @@ We can init MConfig like this:
                 
     //Init MConfig
     MConfig<String, String> config = new MConfig<>();
-        config.init(defaultProvider, serverProvider, fileProvider);
+    config.init(defaultProvider, serverProvider, fileProvider);
         
 Completing the above logic, you can use method `config.getProperty("***")` to get the value you want. `MConfig` will select the appropriate value according to the piority.
 
